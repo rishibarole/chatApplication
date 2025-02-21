@@ -1,0 +1,16 @@
+.app{width:"50%"}
+.headerAddress{
+    width: 30%;
+     height: 40px;
+     display:inline;
+     margin-left: 10px;
+}
+.headerIcon{
+    width: 30px;
+     height: 50px;
+     display:inline;
+}
+.displayInline{
+    display:inline;
+    margin-right:5px;
+}
