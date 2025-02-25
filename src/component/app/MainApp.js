@@ -28,7 +28,7 @@ export default class MainApp extends React.Component {
                     <Route path="/manageDocuments" element={<DocumentList />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/register" element={<Register {...this.props} />} />
-                    <Route path="/editUser/:fullName/:email" element={<EditUser />} />
+                    <Route path="/editUser/:id" element={<EditUser />} />
                     <Route path="/registerSuccessfull" element={<RegisterSuccessfull />} />
                     <Route path="/welcome" element={<Welcome />} />                    
                 </Routes>

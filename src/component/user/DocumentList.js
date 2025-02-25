@@ -2,14 +2,15 @@ import MyNav from "../app/MyNav";
 import { useState } from "react";
 import FileUploadModal from "../elements/FileUploadModal";
 import EditModal from "../elements/EditModal";
+import LocalStorageHandler from "../constant/LocalStorageHandler";
 
 function DocumentList() {
-    const [docList, setDocList] = useState((localStorage.getItem("documentList") ? JSON.parse(localStorage.getItem("documentList")) : []));
+    const [docList, setDocList] = useState(LocalStorageHandler.getStorageData("documentList"));
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [selectedId, setSelectedId]= useState(null);
+    const [selectedId, setSelectedId] = useState(null);
 
     const [editShow, setEditShow] = useState(false);
     const editHandleClose = () => setEditShow(false);
@@ -23,7 +24,7 @@ function DocumentList() {
         let filename = filePath.replace(/^.*[\\/]/, '')
         console.log(filename);
         let fileDesc = document.getElementById("fileDesc").value;
-        let userEmail = JSON.parse(localStorage.getItem("loggedInUser")).email;
+        let userEmail = LocalStorageHandler.getLoggedInUserData("loggedInUser") != "" ? LocalStorageHandler.getLoggedInUserData("loggedInUser").email : "";
         let userDocument = {
             id: Number(new Date()),
             fileDescription: fileDesc,
@@ -31,10 +32,10 @@ function DocumentList() {
             sharedBy: userEmail
         }
 
-        let documentList = localStorage.getItem("documentList") ? JSON.parse(localStorage.getItem("documentList")) : [];
+        let documentList = LocalStorageHandler.getStorageData("documentList");
         documentList.push(userDocument);
         setDocList(documentList);
-        localStorage.setItem("documentList", JSON.stringify(documentList));
+        LocalStorageHandler.setUpdateStorageData("documentList", documentList);
         handleClose();
     };
 
@@ -45,10 +46,10 @@ function DocumentList() {
         if (window.confirm("Are you sure?")) {
             console.log(docId);
 
-            let documentList = localStorage.getItem("documentList") ? JSON.parse(localStorage.getItem("documentList")) : [];
-            let documents = documentList?documentList.filter(doc=>doc.id != docId):[];
+            let documentList = LocalStorageHandler.getStorageData("documentList");
+            let documents = documentList ? documentList.filter(doc => doc.id != docId) : [];
             setDocList(documents);
-            localStorage.setItem("documentList", JSON.stringify(documents));            
+            LocalStorageHandler.setUpdateStorageData("documentList", documents);
 
         }
         return;
@@ -56,7 +57,7 @@ function DocumentList() {
     const editHandleSave = (event) => {
         let fileDesc = document.getElementById("fileDesc") ? document.getElementById("fileDesc").value : "";
 
-        let documentList = localStorage.getItem("documentList") ? JSON.parse(localStorage.getItem("documentList")) : [];
+        let documentList = LocalStorageHandler.getStorageData("documentList");
         let documentvalues = documentList.map((docVal) => {
             if (docVal.id === selectedId) {
                 docVal.fileDescription = fileDesc;
@@ -67,7 +68,7 @@ function DocumentList() {
         );
 
         setDocList(documentvalues);
-        localStorage.setItem("documentList", JSON.stringify(documentvalues));
+        LocalStorageHandler.setUpdateStorageData("documentList", documentvalues);
         editHandleClose();
 
 
@@ -95,7 +96,7 @@ function DocumentList() {
                                 <tr key={index}>
                                     <td>{doc.fileDescription}</td>
                                     <td>{doc.fileName}</td>
-                                    <td><button className="btn btn-link" onClick={()=>editHandleShow(doc.id)}>Edit</button>|<button className="btn btn-link" onClick={deleteDocument(doc.id)}>Delete</button></td>
+                                    <td><button className="btn btn-link" onClick={() => editHandleShow(doc.id)}>Edit</button>|<button className="btn btn-link" onClick={deleteDocument(doc.id)}>Delete</button></td>
                                 </tr>
                             ))
 

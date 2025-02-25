@@ -2,13 +2,18 @@ export default class LocalStorageHandler {
 
 
 
-    static getUserData() {
-        const userData = localStorage.getItem("users") ? JSON.parse(localStorage.getItem("users")) : [];
+    static getStorageData(storage) {
+        const userData = localStorage.getItem(storage) ? JSON.parse(localStorage.getItem(storage)) : [];
         return userData;
     }
-    static updateUserData(storageId, storageValue) {
-        localStorage.setItem("users", JSON.stringify(storageValue));
+    static setUpdateStorageData(storageId, storageValue) {
+        localStorage.setItem(storageId, JSON.stringify(storageValue));
 
     }
+    static getLoggedInUserData(storage) {
+        const userData = localStorage.getItem(storage) ? JSON.parse(localStorage.getItem(storage)) : "";
+        return userData;
+    }
+
 
 }

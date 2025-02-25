@@ -1,12 +1,13 @@
 import MyNav from "../app/MyNav";
 import { useState } from "react";
 import { Toast, Card, Row, Col, Form } from "react-bootstrap";
+import LocalStorageHandler from "../constant/LocalStorageHandler";
 
 function ChatList() {
-    const [chats, setChatsa] = useState((localStorage.getItem("chatList") ? JSON.parse(localStorage.getItem("chatList")) : []));
+    const [chats, setChatsa] = useState(LocalStorageHandler.getStorageData("chatList"));
 
     const addChat = (event) => {
-        let user = JSON.parse(localStorage.getItem("loggedInUser"));
+        let user = LocalStorageHandler.getStorageData("loggedInUser");
         let message = document.getElementById("message").value;
         let dateVal = new Date();
 
@@ -16,11 +17,11 @@ function ChatList() {
             message: message
         }
 
-        let userMessages = localStorage.getItem("chatList") ? JSON.parse(localStorage.getItem("chatList")) : [];
+        let userMessages = LocalStorageHandler.getStorageData("chatList");
         userMessages.push(userMessage);
         setChatsa(userMessages);
 
-        localStorage.setItem("chatList", JSON.stringify(userMessages));
+        LocalStorageHandler.setUpdateStorageData("chatList", userMessages);
 
     }
 
@@ -40,7 +41,7 @@ function ChatList() {
 
                     {
                         chats.map((message, index) => (
-                            <p key={index}> 
+                            <p key={index}>
                                 <span style={{ marginRight: "5px" }}>{message.dateTime} :</span>
                                 <span style={{ marginRight: "5px" }}>{message.user} :</span>
                                 <span style={{ marginRight: "5px" }}>{message.message}</span>

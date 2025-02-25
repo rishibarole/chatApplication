@@ -44,7 +44,7 @@ export default class Login extends React.Component {
                     <Navigate to="/loginSuccessfull" />
                 )
             }
-
+            <div className="m-4"><h3>Login</h3></div>
             <Form action="/loginSuccessfull" method="get" onSubmit={this.validateUser}>
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                     <Form.Label column sm={2}>
@@ -68,18 +68,7 @@ export default class Login extends React.Component {
                     </Col>
                 </Form.Group>
             </Form>
-            {/* <form action="/loginSuccessfull" method="get" onSubmit={this.validateUser}>
-
-                <table align="center">
-                    <tbody align="center">
-                        <tr><td colSpan="2"><h1>Login</h1></td></tr>
-                        <tr><td>Email</td><td><input type="text" id="email" name="email" /></td></tr>
-                        <tr><td>Password</td><td><input type="password" id="password" name="password" /></td></tr>
-                        <tr><td colSpan="2"><button className="btn btn-primary" type="submit">Login</button></td></tr>
-                    </tbody>
-                </table>
-
-            </form> */}
+           
         </div>
     }
 }

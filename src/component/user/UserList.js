@@ -1,12 +1,13 @@
 import React from "react";
 import MyNav from "../app/MyNav";
 import { Link } from "react-router-dom";
+import LocalStorageHandler from "../constant/LocalStorageHandler";
 
 export default class UserList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: JSON.parse(localStorage.getItem("users"))
+            users: LocalStorageHandler.getStorageData("users")
         }
     }
 
@@ -25,7 +26,7 @@ export default class UserList extends React.Component {
                 if (this.state.users[i].fullName === user.fullName) {
                     this.state.users.splice(i, 1);
                     console.log(this.state.users);
-                    localStorage.setItem("users", JSON.stringify(this.state.users))
+                    LocalStorageHandler.setUpdateStorageData("users", this.state.users);                     
                     this.updateStateObject();
                 }
             }
@@ -36,7 +37,7 @@ export default class UserList extends React.Component {
 
     updateStateObject = () => {
         this.setState({
-            users: JSON.parse(localStorage.getItem("users"))
+            users: LocalStorageHandler.getStorageData("users")
         })
     };
     render() {
@@ -59,7 +60,7 @@ export default class UserList extends React.Component {
                                 <tr key={index}>
                                     <td>{user.fullName}</td>
                                     <td>{user.email}</td>
-                                    <td><Link className="btn btn-link" to={`/editUser/${user.fullName}/${user.email}`}>Edit</Link>|<button className="btn btn-link" onClick={this.deleteUser(user)}>Delete</button></td>
+                                    <td><Link className="btn btn-link" to={`/editUser/${user.id}`}>Edit</Link>|<button className="btn btn-link" onClick={this.deleteUser(user)}>Delete</button></td>
                                 </tr>
                             ))
                             : ""
