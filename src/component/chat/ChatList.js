@@ -1,5 +1,6 @@
-import Nav from "../app/Nav";
+import MyNav from "../app/MyNav";
 import { useState } from "react";
+import { Toast, Card, Row, Col, Form } from "react-bootstrap";
 
 function ChatList() {
     const [chats, setChatsa] = useState((localStorage.getItem("chatList") ? JSON.parse(localStorage.getItem("chatList")) : []));
@@ -23,35 +24,56 @@ function ChatList() {
 
     }
 
-    return <div align="center" style={{ width: "500px" }}>
+    return <div align="center">
 
-        <Nav />
-        <div>Group Chat</div>
+        <MyNav />
 
-        <div align="left">
-            <div style={{ width: "300px", marginBottom: "15px" }}>
 
-                {
-                    chats.map((message, index) => (
-                        <p>
-                            <span style={{ marginRight: "5px" }}>{message.dateTime} :</span>
-                            <span style={{ marginRight: "5px" }}>{message.user} :</span>
-                            <span style={{ marginRight: "5px" }}>{message.message}</span>
+        <Toast style={{ width: "auto" }}>
+            <Toast.Header>
+                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                <strong className="me-auto" align="center">Group Chat</strong>
 
-                        </p>
-                    ))
-                }
+            </Toast.Header>
+            <Toast.Body align="left" >
+                <div style={{ marginBottom: "15px" }}>
 
-                <table>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <span>Anne Hunter</span> <span><textarea id="message" name="message" style={{ height: "30px" }}></textarea></span>
-                <span><button className="btn btn-primary" onClick={addChat}>Send</button><button className="btn btn-primary">Refresh</button></span>
-            </div>
-        </div>
+                    {
+                        chats.map((message, index) => (
+                            <p>
+                                <span style={{ marginRight: "5px" }}>{message.dateTime} :</span>
+                                <span style={{ marginRight: "5px" }}>{message.user} :</span>
+                                <span style={{ marginRight: "5px" }}>{message.message}</span>
+
+                            </p>
+                        ))
+                    }
+
+                    <table>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </Toast.Body>
+        </Toast>
+        <Card>
+            <Card.Body align="left">
+                <Row>
+                    <Col xs="auto">
+                        <Form.Label column="lg" lg={20}>
+                            Large Text
+                        </Form.Label>
+                    </Col>
+                    <Col xs="auto">
+                        <Form.Control as="textarea" id="message" name="message" rows={1} />
+                    </Col>
+                    <Col xs="auto">
+                        <span><button className="btn btn-primary m-2" onClick={addChat}>Send</button><button className="btn btn-primary m-2">Refresh</button></span>
+                    </Col>
+                </Row>
+
+            </Card.Body>
+        </Card>
     </div>
 }
 

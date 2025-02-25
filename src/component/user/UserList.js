@@ -1,6 +1,5 @@
 import React from "react";
-import "./user.css";
-import Nav from "../app/Nav";
+import MyNav from "../app/MyNav";
 import { Link } from "react-router-dom";
 
 export default class UserList extends React.Component {
@@ -43,8 +42,8 @@ export default class UserList extends React.Component {
     render() {
         return <>
         <div align="center">
-            <Nav />
-            <div align="center" className="userList">
+            <MyNav />
+            <div align="center">
                 <table border="1" className="table table-striped table-hover">
                     <thead id="head">
                         <tr>
