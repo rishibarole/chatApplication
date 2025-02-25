@@ -4,10 +4,6 @@ import { useState } from "react";
 const FileUploadModal=(props)=>{
     const{show, handleClose,handleSave,handleShow} = props;
 
-    //const [show, setShow] = useState(props.showModal);
-    //const handleClose = () => setShow(false);
-    //const handleShow = () => setShow(true);
-
 return<>
 
 <Modal show={show} onHide={handleClose}>

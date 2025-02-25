@@ -9,11 +9,14 @@ function DocumentList() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    let [editVal, setEditVal] = useState({});
+    const [selectedId, setSelectedId]= useState(null);
 
     const [editShow, setEditShow] = useState(false);
     const editHandleClose = () => setEditShow(false);
-    const editHandleShow = () => setEditShow(true);
+    const editHandleShow = (docId) => {
+        setSelectedId(docId)
+        setEditShow(true);
+    }
 
     const handleSave = (event) => {
         let filePath = document.getElementById("selectedFile").value;
@@ -35,12 +38,27 @@ function DocumentList() {
         handleClose();
     };
 
+    const deleteDocument = docId => e => {
+
+        console.log(docId);
+
+        if (window.confirm("Are you sure?")) {
+            console.log(docId);
+
+            let documentList = localStorage.getItem("documentList") ? JSON.parse(localStorage.getItem("documentList")) : [];
+            let documents = documentList?documentList.filter(doc=>doc.id != docId):[];
+            setDocList(documents);
+            localStorage.setItem("documentList", JSON.stringify(documents));            
+
+        }
+        return;
+    };
     const editHandleSave = (event) => {
         let fileDesc = document.getElementById("fileDesc") ? document.getElementById("fileDesc").value : "";
 
         let documentList = localStorage.getItem("documentList") ? JSON.parse(localStorage.getItem("documentList")) : [];
         let documentvalues = documentList.map((docVal) => {
-            if (docVal.id === editVal) {
+            if (docVal.id === selectedId) {
                 docVal.fileDescription = fileDesc;
             }
             return docVal;
@@ -77,7 +95,7 @@ function DocumentList() {
                                 <tr key={index}>
                                     <td>{doc.fileDescription}</td>
                                     <td>{doc.fileName}</td>
-                                    <td><button className="btn btn-link" onClick={editHandleShow}>Edit</button>|<button className="btn btn-link">Delete</button></td>
+                                    <td><button className="btn btn-link" onClick={()=>editHandleShow(doc.id)}>Edit</button>|<button className="btn btn-link" onClick={deleteDocument(doc.id)}>Delete</button></td>
                                 </tr>
                             ))
 

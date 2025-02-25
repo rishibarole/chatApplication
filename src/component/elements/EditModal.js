@@ -2,15 +2,11 @@ import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import { useState } from "react";
 
 const EditModal=(props)=>{
-    const{showEdit, editHandleClose,editHandleSave,editHandleShow} = props;
-
-    //const [show, setShow] = useState(props.showModal);
-    //const handleClose = () => setShow(false);
-    //const handleShow = () => setShow(true);
-
+    const{editShow, editHandleClose,editHandleSave,editHandleShow} = props;
+ 
 return<>
 
-<Modal show={showEdit} onHide={editHandleClose}>
+<Modal show={editShow} onHide={editHandleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Upload</Modal.Title>
             </Modal.Header>

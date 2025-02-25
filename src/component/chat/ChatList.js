@@ -40,7 +40,7 @@ function ChatList() {
 
                     {
                         chats.map((message, index) => (
-                            <p>
+                            <p key={index}> 
                                 <span style={{ marginRight: "5px" }}>{message.dateTime} :</span>
                                 <span style={{ marginRight: "5px" }}>{message.user} :</span>
                                 <span style={{ marginRight: "5px" }}>{message.message}</span>
