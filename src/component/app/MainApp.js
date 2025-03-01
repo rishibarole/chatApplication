@@ -30,7 +30,8 @@ export default class MainApp extends React.Component {
                     <Route path="/register" element={<Register {...this.props} />} />
                     <Route path="/editUser/:id" element={<EditUser />} />
                     <Route path="/registerSuccessfull" element={<RegisterSuccessfull />} />
-                    <Route path="/welcome" element={<Welcome />} />                    
+                    <Route path="/welcome" element={<Welcome />} /> 
+                    <Route path="/welcome/:logoutFlag" element={<Welcome />} />                    
                 </Routes>
             </BrowserRouter>
         </div >
